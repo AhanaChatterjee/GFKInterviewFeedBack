@@ -1,0 +1,96 @@
+﻿@model GFKInterviewFeedback.Models.SurveyData
+
+
+@{
+    ViewBag.Title = "FeedBack";
+}
+
+<h2>Interview FeedBack</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        <hr />
+        
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobOpportunity, htmlAttributes: new { @class = "control-label " })
+            <div class="col-md-10">
+                
+                @Html.EnumDropDownListFor(model => model.JobOpportunity,"Please select an option",htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.JobOpportunity,"", new { @class = "text-danger" })
+               
+            </div>
+        </div>
+
+        <div class="form-group" id="divCompanyLoc">
+            @Html.LabelFor(model => model.CompanyLocation, htmlAttributes: new { @class = "control-label " })
+            <div class="col-md-10">
+               
+                @for(int i =0;i<Model.CompanyLocation.Count;i++)
+                {
+                @Html.CheckBoxFor(model => model.CompanyLocation[i].Checked)
+                @Model.CompanyLocation[i].Name
+                @Html.HiddenFor(model => model.CompanyLocation[i].Id)
+                @Html.HiddenFor(model => model.CompanyLocation[i].Name)
+                <div></div>
+                }
+                <div></div>
+                <span id="validationMessageForCompanyLoc" class="text-danger" />
+                 @Html.ValidationMessageFor(model => model.CompanyLocation, "", new { @class = "text-danger" })
+</div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OfficeImpression, htmlAttributes: new { @class = "control-label " })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.OfficeImpression, "Please select an option", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OfficeImpression, "", new { @class = "text-danger" })
+               
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InterviewChallenge, htmlAttributes: new { @class = "control-label " })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.InterviewChallenge, "Please select an option", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.InterviewChallenge, "", new { @class = "text-danger" })
+                
+            </div>
+        </div>
+        <div class="form-group" id="divInterviewerDesc">
+            @Html.LabelFor(model => model.InterviewerDesc, htmlAttributes: new { @class = "control-label " })
+            <div class="col-md-10">
+                @for (int i = 0; i < Model.InterviewerDesc.Count; i++)
+                {@Html.CheckBoxFor(model => model.InterviewerDesc[i].Checked)
+                    @Model.InterviewerDesc[i].Name
+                    @Html.HiddenFor(model => model.InterviewerDesc[i].Id)
+                    @Html.HiddenFor(model => model.InterviewerDesc[i].Name)
+                    <div></div>
+                }
+                <div></div>
+                @Html.ValidationMessageFor(model => model.InterviewerDesc, "", new { @class = "text-danger" })
+                <span id="validationMessageForInterviewDesc" class="text-danger" />
+            </div>
+        </div>
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="btnSubmit" type="submit" value="submit" class="btn btn-default" onclick="javascript:return submitWith();"   />
+            </div>
+        </div>
+       
+    </div>
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/scripts/CustomJavaScript.js"></script>
+
